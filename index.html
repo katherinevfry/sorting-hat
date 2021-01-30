@@ -8,6 +8,35 @@
   <title>Sorting Hat</title>
 </head>
 <body>
+  <!-- jumbotron -->
+  <div class="jumbotron">
+    <h1 class="display-4">Hello, Potterheads!</h1>
+    <p class="lead">Welcome to Hogwarts! Let's sort you into your house, shall we?.</p>
+    <hr class="my-4">
+    <p>Click the button below to begin.</p>
+    <p class="lead">
+      <a class="btn btn-primary btn-lg" id="formOpenButton" role="button">click me</a>
+    </p>
+  </div>
+
+  <!-- input form -->
+<form>
+  <div>
+    <label for="studentName">Student Name:</label>
+    <input type="text" class="form-control" id="studentNameInput" placeholder="Nevil Longbottom" required>
+  </div>
+  <button type="submit" class="btn btn-primary" id="sortButton">Sort me!</button>
+</form>
+
+<!-- student card -->
+<div class="card" style="width: 18rem;">
+  <div class="card-body">
+    <h5 class="card-title" id="newStudent">Name</h5>
+    <p class="card-text" id="hogwartsHouse">House</p>
+    <a href="#" class="btn btn-primary" id="expelButton">Expel</a>
+  </div>
+</div>
+
   <!-- scripts -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
   <script src="main.js"></script>
