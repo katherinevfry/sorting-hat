@@ -18,7 +18,7 @@ const buttonEvents = () => {
 //function to show form on button click
 
 const showForm = () => {
-  let form = `<form>
+  let form = `<form class="form">
   <div>
     <label for="studentName">Student Name:</label>
     <input type="text" class="form-control" id="studentNameInput" placeholder="Nevil Longbottom" required="true">
@@ -37,7 +37,7 @@ const dangerMessage = () => {
 const cardBuilder = (arr) => {
   let domString = "";
   for (let [i, element] of arr.entries()) {
-    domString += `<div class="card" style="width: 18rem; id=${i}">
+    domString += `<div class="card ${element.house}" style="width: 18rem; id=${i}">
     <div class="card-body">
       <h5 class="card-title" id="student">${element.name}</h5>
       <p class="card-text" id="house">${element.house}</p>
