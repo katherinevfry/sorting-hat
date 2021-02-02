@@ -21,7 +21,7 @@ const showForm = () => {
   let form = `<form>
   <div>
     <label for="studentName">Student Name:</label>
-    <input type="text" class="form-control" id="studentNameInput" placeholder="Nevil Longbottom" required>
+    <input type="text" class="form-control" id="studentNameInput" placeholder="Nevil Longbottom" required="true">
   </div>
   <button type="submit" class="btn btn-primary" id="sortButton">Sort me!</button>
 </form>`;
@@ -29,14 +29,19 @@ const showForm = () => {
   document.querySelector("#sortButton").addEventListener("click", grabFormInfo);
 };
 
+const dangerMessage = () => {
+  let message = `<h6 class="text-danger">Please type a name</h6>`;
+  printToDom("#dangerZone", message);
+};
+
 const cardBuilder = (arr) => {
   let domString = "";
-  for (let i = 0; i < arr.length; i++) {
+  for (let [i, element] of arr.entries()) {
     domString += `<div class="card" style="width: 18rem; id=${i}">
     <div class="card-body">
-      <h5 class="card-title" id="student">${arr[i].name}</h5>
-      <p class="card-text" id="house">${arr[i].house}</p>
-      <a href="#" type="button" class="btn btn-primary" id="${arr[i].id}">Expel</a>
+      <h5 class="card-title" id="student">${element.name}</h5>
+      <p class="card-text" id="house">${element.house}</p>
+      <a href="#" type="button" class="btn btn-danger" id="${element.id}">Expel</a>
     </div>
   </div>`;
   }
@@ -52,15 +57,15 @@ const sortingHat = () => {
   return houseAssignment;
 };
 
-
 //capture entered student data and push to array
 
 const grabFormInfo = (e) => {
   e.preventDefault();
+
   const name = document.querySelector("#studentNameInput").value;
   const house = sortingHat();
 
-const studentIds = students
+  const studentIds = students
     .map((student) => student.id)
     .sort((a, b) => a - b);
 
@@ -72,32 +77,34 @@ const studentIds = students
     id,
   };
 
-  students.push(obj);
+  if (name.length === 0) {
+    dangerMessage();
+  } else {
+    students.push(obj);
 
-  cardBuilder(students);
+    cardBuilder(students);
 
-  document.querySelector("form").reset();
+    document.querySelector("form").reset();
+  }
 };
-
 
 // create delete function (pushes cards to voldemort's army?)
 
 const expelStudent = (e) => {
   const targetType = e.target.type;
   const targetId = Number(e.target.id);
- 
 
   if (targetType === "button") {
-const studentIndex = students.findIndex((student) => student.id === targetId);
-students.splice(studentIndex, 1);
-  } 
+    const studentIndex = students.findIndex(
+      (student) => student.id === targetId
+    );
+    students.splice(studentIndex, 1);
+  }
   cardBuilder(students);
 };
 
-
 const init = () => {
   buttonEvents();
-  cardBuilder(students);
 };
 
 init();
