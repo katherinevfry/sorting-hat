@@ -5,19 +5,15 @@ const students = [];
 const printToDom = (divId, textToPrint) => {
   const selectedDiv = document.querySelector(divId);
   selectedDiv.innerHTML = textToPrint;
-}
-
+};
 
 //button event handler
 
 const buttonEvents = () => {
-document.querySelector('#formOpenButton').addEventListener('click', showForm);
-document.querySelector('#sortButton').addEventListener('click', function() {
-console.log('i was clicked');
-});
-// document.querySelector('#expelButton').addEventListener('click', cb);
-}
+  document.querySelector("#formOpenButton").addEventListener("click", showForm);
 
+  document.querySelector("#firstYears").addEventListener("click", expelStudent);
+};
 
 //function to show form on button click
 
@@ -28,49 +24,80 @@ const showForm = () => {
     <input type="text" class="form-control" id="studentNameInput" placeholder="Nevil Longbottom" required>
   </div>
   <button type="submit" class="btn btn-primary" id="sortButton">Sort me!</button>
-</form>`
-printToDom ('#formDiv', form)
-}
+</form>`;
+  printToDom("#formDiv", form);
+  document.querySelector("#sortButton").addEventListener("click", grabFormInfo);
+};
+
+const cardBuilder = (arr) => {
+  let domString = "";
+  for (let i = 0; i < arr.length; i++) {
+    domString += `<div class="card" style="width: 18rem; id=${i}">
+    <div class="card-body">
+      <h5 class="card-title" id="student">${arr[i].name}</h5>
+      <p class="card-text" id="house">${arr[i].house}</p>
+      <a href="#" type="button" class="btn btn-primary" id="${arr[i].id}">Expel</a>
+    </div>
+  </div>`;
+  }
+  printToDom("#firstYears", domString);
+};
+
+// create sorting hat function
+
+const sortingHat = () => {
+  const hogwartsHouses = ["Slytherin", "Ravenclaw", "Hufflepuff", "Gryffindor"];
+  let houseAssignment =
+    hogwartsHouses[Math.floor(Math.random() * hogwartsHouses.length)];
+  return houseAssignment;
+};
+
 
 //capture entered student data and push to array
 
 const grabFormInfo = (e) => {
   e.preventDefault();
-  const nameData = document.querySelector('#studentNameInput').value;
+  const name = document.querySelector("#studentNameInput").value;
+  const house = sortingHat();
 
-students.name = nameData;
-students.hogwartsHouse = sortingHat();
+const studentIds = students
+    .map((student) => student.id)
+    .sort((a, b) => a - b);
 
-}
+  const id = studentIds.length ? studentIds[studentIds.length - 1] + 1 : 1;
 
-// create sorting hat function
+  const obj = {
+    name,
+    house,
+    id,
+  };
 
-const sortingHat = () => {
-  const hogwartsHouses = ['Slytherin', 'Ravenclaw', 'Hufflepuff', 'Gryffindor'];
-  let houseAssignment = hogwartsHouses[Math.floor(Math.random() * hogwartsHouses.length)];
-  return houseAssignment;
-}
+  students.push(obj);
 
-//create student cards (creates cards, data from sorting hat and student array)
+  cardBuilder(students);
 
-const cardBuilder = (taco) => {
-let domString = '';
-for (let i = 0; i < taco.length; i++) {
-  domstring += `<div class="card" style="width: 18rem; id=${i}">
-  <div class="card-body">
-    <h5 class="card-title" id="newStudent">${taco[i].name}</h5>
-    <p class="card-text" id="hogwartsHouse">${taco[i].hogwartsHouse}</p>
-    <a href="#" class="btn btn-primary" id="expelButton">Expel</a>
-  </div>
-</div>`
-}
-}
+  document.querySelector("form").reset();
+};
 
 
 // create delete function (pushes cards to voldemort's army?)
 
+const expelStudent = (e) => {
+  const targetType = e.target.type;
+  const targetId = Number(e.target.id);
+ 
+
+  if (targetType === "button") {
+const studentIndex = students.findIndex((student) => student.id === targetId);
+students.splice(studentIndex, 1);
+  } 
+  cardBuilder(students);
+};
+
+
 const init = () => {
   buttonEvents();
-}
+  cardBuilder(students);
+};
 
 init();
