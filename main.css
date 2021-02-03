@@ -28,4 +28,13 @@ div .card {
 
 .Slytherin {
   border: 2px solid #2A623D;
+} 
+
+.cardImg {
+  height: 100px;
+  object-fit:scale-down;
+}
+
+.expelled {
+  border: 2px solid black;
 }
