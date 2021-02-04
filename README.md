@@ -39,7 +39,7 @@ The user is likely a huge Potterhead. She wants to know what Hogwarts house she 
 - All first year students are displayed alphabetically
 - Responsive design allows user to use application on all screen sizes
 ## Screenshots of your project
-![screenshot](Screenshot (21).png)
+![screenshot](https://github.com/katherinevfry/sorting-hat/blob/main/Screenshot%20(21).png)
 ## List of contributors and links to their GH profiles
 n/a
 ## Link to Loom video walkthrough of your app 
