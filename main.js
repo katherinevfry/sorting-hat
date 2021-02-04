@@ -1,10 +1,14 @@
 const students = [];
 
 const voldysArmy = [];
-const Gryffindor = "https://mmv2api.s3.us-east-2.amazonaws.com/products/images/2-image-111773-1-productimagenowatermark.jpg";
-const Hufflepuff = "https://cdn11.bigcommerce.com/s-ydriczk/images/stencil/original/products/88364/91134/Harry-Potter-Hufflepuff-Crest-Official-wall-mounted-cardboard-cutout-buy-now-at-star__21122.1507644096.jpg?c=2";
-const Slytherin = "https://i.pinimg.com/originals/d1/37/31/d137310caea589e8f550404f41ca57e2.jpg";
-const Ravenclaw = "https://www.yourwdwstore.net/assets/images/3/30000/2000/000/32099.jpg";
+const Gryffindor =
+  "https://mmv2api.s3.us-east-2.amazonaws.com/products/images/2-image-111773-1-productimagenowatermark.jpg";
+const Hufflepuff =
+  "https://cdn11.bigcommerce.com/s-ydriczk/images/stencil/original/products/88364/91134/Harry-Potter-Hufflepuff-Crest-Official-wall-mounted-cardboard-cutout-buy-now-at-star__21122.1507644096.jpg?c=2";
+const Slytherin =
+  "https://i.pinimg.com/originals/d1/37/31/d137310caea589e8f550404f41ca57e2.jpg";
+const Ravenclaw =
+  "https://www.yourwdwstore.net/assets/images/3/30000/2000/000/32099.jpg";
 
 const printToDom = (divId, textToPrint) => {
   const selectedDiv = document.querySelector(divId);
@@ -49,8 +53,6 @@ const cardBuilder = (arr) => {
   printToDom("#firstYears", domString);
 };
 
-
-
 const sortingHat = () => {
   const hogwartsHouses = ["Slytherin", "Ravenclaw", "Hufflepuff", "Gryffindor"];
   let houseAssignment =
@@ -58,14 +60,12 @@ const sortingHat = () => {
   return houseAssignment;
 };
 
-
 const grabFormInfo = (e) => {
   e.preventDefault();
 
   const name = document.querySelector("#studentNameInput").value;
   const house = sortingHat();
-  const crest = '';
- 
+  const crest = "";
 
   const studentIds = students
     .map((student) => student.id)
@@ -80,13 +80,13 @@ const grabFormInfo = (e) => {
     crest,
   };
 
-  if (house === 'Gryffindor') {
+  if (house === "Gryffindor") {
     obj.crest = Gryffindor;
-  } else if (house === 'Slytherin') {
+  } else if (house === "Slytherin") {
     obj.crest = Slytherin;
-  } else if (house === 'Hufflepuff') {
+  } else if (house === "Hufflepuff") {
     obj.crest = Hufflepuff;
-  } else if (house === 'Ravenclaw') {
+  } else if (house === "Ravenclaw") {
     obj.crest = Ravenclaw;
   }
 
@@ -96,14 +96,12 @@ const grabFormInfo = (e) => {
     students.push(obj);
 
     let sortedStudents = students.sort((a, b) => {
-      if (a.name < b.name) return -1
-      if (a.name > b.name) return 1
-      return 0
-    })
-    
+      if (a.name < b.name) return -1;
+      if (a.name > b.name) return 1;
+      return 0;
+    });
 
     cardBuilder(sortedStudents);
-    
 
     document.querySelector("form").reset();
   }
