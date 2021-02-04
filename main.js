@@ -1,5 +1,5 @@
+//Data Structures
 const students = [];
-
 const voldysArmy = [];
 const Gryffindor =
   "https://mmv2api.s3.us-east-2.amazonaws.com/products/images/2-image-111773-1-productimagenowatermark.jpg";
@@ -10,17 +10,19 @@ const Slytherin =
 const Ravenclaw =
   "https://www.yourwdwstore.net/assets/images/3/30000/2000/000/32099.jpg";
 
+  //Print to DOM function
 const printToDom = (divId, textToPrint) => {
   const selectedDiv = document.querySelector(divId);
   selectedDiv.innerHTML = textToPrint;
 };
-
+//Add event listeners to buttons
 const buttonEvents = () => {
   document.querySelector("#formOpenButton").addEventListener("click", showForm);
 
   document.querySelector("#firstYears").addEventListener("click", expelStudent);
 };
 
+//show form on button click function
 const showForm = () => {
   let form = `<form class="form">
   <div>
@@ -30,14 +32,16 @@ const showForm = () => {
   <button type="submit" class="btn btn-primary" id="sortButton">Sort!</button>
 </form>`;
   printToDom("#formDiv", form);
-  document.querySelector("#sortButton").addEventListener("click", grabFormInfo);
+  document.querySelector("#sortButton").addEventListener("click", domEvents);
 };
 
+// message to print to DOM if empty name entry field
 const dangerMessage = () => {
   let message = `<h6 class="text-danger">Please type a name</h6>`;
   printToDom("#dangerZone", message);
 };
 
+// Function to build a student card
 const cardBuilder = (arr) => {
   let domString = "";
   for (let [i, element] of arr.entries()) {
@@ -53,6 +57,7 @@ const cardBuilder = (arr) => {
   printToDom("#firstYears", domString);
 };
 
+// Sorts students into random house
 const sortingHat = () => {
   const hogwartsHouses = ["Slytherin", "Ravenclaw", "Hufflepuff", "Gryffindor"];
   let houseAssignment =
@@ -60,18 +65,33 @@ const sortingHat = () => {
   return houseAssignment;
 };
 
-const grabFormInfo = (e) => {
+//Arranges hogwarts students alphabetically on DOM
+const sortStudents = () => {
+  let sortedStudents = students.sort((a, b) => {
+    if (a.name < b.name) return -1;
+    if (a.name > b.name) return 1;
+    return 0;
+  });
+  return sortedStudents
+}
+
+//Populate student array with student info
+const domEvents = (e) => {
   e.preventDefault();
 
   const name = document.querySelector("#studentNameInput").value;
   const house = sortingHat();
   const crest = "";
 
-  const studentIds = students
+  const studentNumber = students
     .map((student) => student.id)
     .sort((a, b) => a - b);
 
-  const id = studentIds.length ? studentIds[studentIds.length - 1] + 1 : 1;
+  if (studentNumber.length) {
+   id = studentNumber[studentNumber.length - 1] + 1
+  } else {
+    id = 1;
+  }
 
   const obj = {
     name,
@@ -80,6 +100,7 @@ const grabFormInfo = (e) => {
     crest,
   };
 
+  
   if (house === "Gryffindor") {
     obj.crest = Gryffindor;
   } else if (house === "Slytherin") {
@@ -94,47 +115,43 @@ const grabFormInfo = (e) => {
     dangerMessage();
   } else {
     students.push(obj);
-
-    let sortedStudents = students.sort((a, b) => {
-      if (a.name < b.name) return -1;
-      if (a.name > b.name) return 1;
-      return 0;
-    });
-
-    cardBuilder(sortedStudents);
-
+    cardBuilder(sortStudents());
     document.querySelector("form").reset();
   }
 };
 
+//delete functionality
 const expelStudent = (e) => {
-  const targetType = e.target.type;
-  const targetId = Number(e.target.id);
+  const isThisButton = e.target.type;
+  const studentToExpel = Number(e.target.id);
 
-  if (targetType === "button") {
-    const studentIndex = students.findIndex(
-      (student) => student.id === targetId
+  if (isThisButton === "button") {
+    const deleteStudentHere = students.findIndex(
+      (student) => student.id === studentToExpel
     );
-    let expelled = students.splice(studentIndex, 1);
-    voldysArmy.push(...expelled);
+    let deathEaters = students.splice(deleteStudentHere, 1);
+    voldysArmy.push(...deathEaters);
   }
   cardBuilder(students);
   voldermortsArmy(voldysArmy);
-  console.log(voldysArmy);
+
 };
 
+// creates card for expelled students
 const voldermortsArmy = (arr) => {
-  let expelled = "";
+  let deathEaters = "";
   for (let [i, element] of arr.entries()) {
-    expelled += `<div class="card expelled" style="width: 18rem; id=${element.id}">
-      <p class="card-text" id="student"> Oh no! ${element.name} has joined Voldermort's Army!</p>
+    deathEaters += `<div class="card expelled" style="width: 18rem; id=${element.id}">
+      <p class="card-text" id="student"> Oh no! <b>${element.name}</b> has joined Voldermort's Army!</p>
   </div>`;
   }
-  printToDom("#voldysArmy", expelled);
+  printToDom("#voldysArmy", deathEaters);
 };
 
+//initialize events function
 const init = () => {
   buttonEvents();
 };
 
+//make it all happen!
 init();

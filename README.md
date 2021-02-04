@@ -43,8 +43,7 @@ The user is likely a huge Potterhead. She wants to know what Hogwarts house she 
 ## List of contributors and links to their GH profiles
 n/a
 ## Link to Loom video walkthrough of your app 
-*I will add this tomorrow :)*
-
+https://www.loom.com/share/8414ea36ffdc41febc098a6ccd7a4758
 
 # Sorting Hat
 
