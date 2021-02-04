@@ -1,4 +1,5 @@
 const students = [];
+
 const voldysArmy = [];
 const Gryffindor = "https://mmv2api.s3.us-east-2.amazonaws.com/products/images/2-image-111773-1-productimagenowatermark.jpg";
 const Hufflepuff = "https://cdn11.bigcommerce.com/s-ydriczk/images/stencil/original/products/88364/91134/Harry-Potter-Hufflepuff-Crest-Official-wall-mounted-cardboard-cutout-buy-now-at-star__21122.1507644096.jpg?c=2";
@@ -48,6 +49,8 @@ const cardBuilder = (arr) => {
   printToDom("#firstYears", domString);
 };
 
+
+
 const sortingHat = () => {
   const hogwartsHouses = ["Slytherin", "Ravenclaw", "Hufflepuff", "Gryffindor"];
   let houseAssignment =
@@ -92,7 +95,15 @@ const grabFormInfo = (e) => {
   } else {
     students.push(obj);
 
-    cardBuilder(students);
+    let sortedStudents = students.sort((a, b) => {
+      if (a.name < b.name) return -1
+      if (a.name > b.name) return 1
+      return 0
+    })
+    
+
+    cardBuilder(sortedStudents);
+    
 
     document.querySelector("form").reset();
   }
