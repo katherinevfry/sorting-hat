@@ -1,3 +1,40 @@
 body {
-  background-color: azure;
+  background-color: whitesmoke;
+}
+div .card {
+  margin: 2rem;
+}
+
+.form {
+  width: 30%;
+  margin: auto;
+}
+
+#sortButton {
+  margin: 1em;
+}
+
+.Gryffindor {
+  border: 2px solid #ae0001;
+}
+
+.Hufflepuff {
+  border: 2px solid #FFDB00;
+}
+
+.Ravenclaw {
+  border: 2px solid #222F5B;
+}
+
+.Slytherin {
+  border: 2px solid #2A623D;
+} 
+
+.cardImg {
+  height: 100px;
+  object-fit:scale-down;
+}
+
+.expelled {
+  border: 2px solid black;
 }
