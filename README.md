@@ -1,5 +1,5 @@
-## Name of the Project
-Sorting Hat!
+[![Netlify Status](https://api.netlify.com/api/v1/badges/b8b3ed94-1fd5-4618-8aeb-04188932e947/deploy-status)](https://app.netlify.com/sites/kf-sorting-hat/deploys)
+# Sorting Hat!
 
 ![sortinghat](https://github.com/katherinevfry/photo-area/blob/main/Sorting%20Hat.png)
 
